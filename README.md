@@ -2,9 +2,42 @@
 
 This project explores whether dataset characteristics can be used to recommend the most suitable univariate feature selection filter for a classification problem.
 
+<<<<<<< Updated upstream
 The core idea is to treat feature selector recommendation as a **meta-learning task**: each dataset becomes one meta-example, described by meta-features extracted with PyMFE, and labelled with the filter that achieved the best multi-criteria score.
 
 The project was developed as my Bachelor's Thesis in Computer Science and focuses on three univariate feature selection filters:
+=======
+This repository contains the code and notebook for a Bachelor's Thesis project on meta-learning for automated recommendation of univariate feature selection filters in classification problems.
+
+The project builds a meta-dataset from OpenML classification datasets, evaluates several feature selection filters on each dataset, extracts meta-features with PyMFE and custom descriptors, trains meta-learners, and analyzes the resulting meta-dataset through feature-importance and clustering experiments.
+
+## Highlights
+
+- Bachelor's Thesis project on meta-learning for automated feature selector recommendation.
+- Built a meta-dataset from 126 OpenML classification datasets.
+- Extracted 80 usable meta-features using PyMFE and custom descriptors.
+- Evaluated Chi-Square, Mutual Information and ANOVA F-test.
+- Best result: Gradient Boosting with Top 30 meta-features reached 0.5873 LOO accuracy vs 0.4127 majority baseline.
+- Main value: the model improves over a simple baseline in a difficult low-data meta-learning setting.
+
+## Problem
+
+There is no universally best feature selection filter. The behavior of a filter depends on the characteristics of the dataset: number and type of variables, class distribution, feature-target relationships, noise, redundancy, and classification complexity. A filter that performs well on one dataset may not be the best option for another.
+
+Meta-learning is a suitable approach because it represents each dataset through meta-features and learns relationships between dataset characteristics and selector performance. Instead of manually choosing a filter, the method uses previous evaluations across datasets to recommend a filter for a new classification task.
+
+## Methodology
+
+The experimental pipeline is:
+
+```text
+OpenML -> preprocessing -> filter evaluation -> composite score -> meta-feature extraction -> meta-dataset construction -> meta-learner training -> clustering analysis
+```
+
+OpenML tasks are collected from the suites used in the notebook. Each dataset is preprocessed, the feature selectors are evaluated using stratified cross-validation, and a composite score is computed from accuracy, standard deviation, and execution time. PyMFE is then used to extract meta-features, which are combined with the selector scores to form the final meta-dataset. The notebook evaluates meta-learners with Leave-One-Out validation and later performs feature-importance and clustering analyses.
+
+## Evaluated Feature Selectors
+>>>>>>> Stashed changes
 
 - Chi-Square
 - Mutual Information
@@ -148,6 +181,8 @@ After preprocessing and cleaning, the final meta-dataset contained **126 dataset
 
 ---
 
+The final modeling matrix used in the notebook contains 80 usable meta-features.
+
 ## Models
 
 The main meta-learning models evaluated were:
@@ -172,11 +207,17 @@ Additional analyses included:
 
 The final target distribution was moderately imbalanced:
 
+<<<<<<< Updated upstream
 | Selector | Count | Proportion |
 |---|---:|---:|
 | mutual_info | 52 | 41.27% |
 | chi2 | 42 | 33.33% |
 | f_classif | 32 | 25.40% |
+=======
+The best reported result is `0.5873` Leave-One-Out accuracy using Gradient Boosting with the Top 30 ranked meta-features. This is not a high absolute accuracy, and it should not be interpreted as a definitive solution to feature selector recommendation. However, it is meaningful in this exploratory setting because it improves over the majority-class baseline of `0.4127` by about 17.5 percentage points.
+
+Target distribution:
+>>>>>>> Stashed changes
 
 The majority-class baseline is therefore **0.4127**, obtained by always predicting `mutual_info`.
 
@@ -225,6 +266,7 @@ Gradient Boosting Top-30 accuracy by cluster:
 | 1 | mutual_info-oriented, high confidence | 26 | 20 | **0.7692** |
 | 2 | ambiguous, low confidence | 69 | 41 | 0.5942 |
 
+<<<<<<< Updated upstream
 The strongest performance appears in Cluster 1, where `mutual_info` dominates more clearly. This supports the idea that meta-learning is more effective in regions of the meta-dataset where selector behavior is structurally more consistent.
 
 This analysis is valuable because it shows that the recommendation problem is not equally difficult across all datasets. Some groups contain clearer patterns, while others are more ambiguous.
@@ -256,6 +298,24 @@ Main limitations:
 - The results indicate useful signal, but not enough evidence to claim a fully general recommender.
 
 ---
+=======
+## What this project demonstrates
+
+- Machine learning experimentation
+- Meta-learning
+- Feature selection
+- OpenML data handling
+- Cross-validation and Leave-One-Out evaluation
+- Python modularization
+- Result analysis and academic reporting
+
+## Limitations
+
+- The meta-dataset is small for a meta-learning problem.
+- The results are exploratory.
+- More datasets and more feature selectors would be needed for stronger conclusions.
+- The project is research-oriented and is not intended as production software.
+>>>>>>> Stashed changes
 
 ## Repository Structure
 
@@ -280,6 +340,7 @@ Main limitations:
 └── figures/
 ```
 
+<<<<<<< Updated upstream
 ### Folders
 
 | Path | Description |
@@ -290,6 +351,12 @@ Main limitations:
 | `figures/` | Figures used for analysis and documentation |
 
 ---
+=======
+- `notebooks/`: contains the original experimental notebook.
+- `src/`: contains the notebook code separated into Python files by experimental block.
+- `results/`: intended for generated meta-datasets, intermediate results, and exported tables.
+- `figures/`: intended for generated plots.
+>>>>>>> Stashed changes
 
 ## How to Run
 
@@ -312,6 +379,7 @@ Run the notebook:
 jupyter notebook notebooks/Notebook_final.ipynb
 ```
 
+<<<<<<< Updated upstream
 Due to the computational cost of extracting meta-features across many OpenML datasets, the full experiment may take several hours. Some parts of the pipeline can be expensive, especially complexity and landmarking meta-features.
 
 ---
@@ -350,3 +418,10 @@ The work combines concepts from:
 **Pablo Sáez Morales**
 
 Computer Science graduate focused on machine learning, applied AI and data-driven systems.
+=======
+The notebook contains the full experimental workflow: OpenML loading, preprocessing, selector evaluation, meta-feature extraction, meta-dataset construction, meta-learner evaluation, feature-importance analysis, and clustering analysis.
+
+## Technologies Used
+
+Python, scikit-learn, OpenML, PyMFE, pandas, NumPy, Matplotlib/Seaborn and Jupyter Notebook.
+>>>>>>> Stashed changes
