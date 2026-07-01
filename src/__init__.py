@@ -1,2 +1,2 @@
-"""Utilities for the feature-selection meta-learning TFG project."""
+"""Reusable code for the feature-selection meta-learning project."""
 

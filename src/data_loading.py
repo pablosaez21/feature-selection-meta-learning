@@ -1,4 +1,4 @@
-"""OpenML task loading helpers."""
+"""OpenML loading and meta-dataset persistence helpers."""
 
 from __future__ import annotations
 
@@ -8,8 +8,8 @@ import openml
 from .config import OPENML_SUITES
 
 
-def obtener_task_ids_suites(suite_names: list[str] | None = None) -> list[int]:
-    """Return the unique task ids from the OpenML suites used in the notebook."""
+def get_suite_task_ids(suite_names: list[str] | None = None) -> list[int]:
+    """Return unique OpenML task IDs from the configured suites."""
     suite_names = OPENML_SUITES if suite_names is None else suite_names
     task_ids: set[int] = set()
     for suite_name in suite_names:
@@ -18,13 +18,13 @@ def obtener_task_ids_suites(suite_names: list[str] | None = None) -> list[int]:
     return list(task_ids)
 
 
-def guardar_meta_dataset(meta_dataset_df: pd.DataFrame, base_name: str = "meta_dataset_df2") -> None:
-    """Persist the meta-dataset in the two formats used by the notebook."""
-    meta_dataset_df.to_pickle(f"{base_name}.pkl")
-    meta_dataset_df.to_csv(f"{base_name}.csv", index=False)
+def save_meta_dataset(meta_dataset_df: pd.DataFrame, base_path: str = "results/meta_dataset_df2") -> None:
+    """Save the meta-dataset as pickle and CSV."""
+    meta_dataset_df.to_pickle(f"{base_path}.pkl")
+    meta_dataset_df.to_csv(f"{base_path}.csv", index=False)
 
 
-def cargar_meta_dataset(path: str = "meta_dataset_df2.pkl") -> pd.DataFrame:
+def load_meta_dataset(path: str = "results/meta_dataset_df2.pkl") -> pd.DataFrame:
     """Load a previously generated meta-dataset."""
     return pd.read_pickle(path)
 
