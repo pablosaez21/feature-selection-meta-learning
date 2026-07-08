@@ -136,7 +136,8 @@ GradientBoosting Top-30 accuracy by cluster:
 - The meta-dataset is small for a meta-learning problem.
 - The results are exploratory.
 - More datasets and more feature selectors would be needed for stronger conclusions.
-- The project is research-oriented and is not intended as production software.
+- The project is scalable and parametrizable, but it is research-oriented in its current form.
+- With more computational resources, the pipeline could be extended and prepared for software-oriented use; in its current state, it is not production-ready.
 
 ## Repository Structure
 
